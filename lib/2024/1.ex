@@ -1,10 +1,10 @@
+alias AdventOfCode.Helpers.Transformers
+
 import AOC
 
 aoc 2024, 1 do
   @moduledoc """
   https://adventofcode.com/2024/day/1
-
-  NOTE: Go back and put the input parsing stuff in a helper library
   """
 
   @doc """
@@ -12,7 +12,8 @@ aoc 2024, 1 do
   """
   def p1(input) do
     input
-    |> transform_input_to_lists()
+    |> Transformers.lines()
+    |> separate_entries_to_lists()
     |> sort_lists()
     |> reduce_pairs_to_differences()
     |> Enum.sum()
@@ -23,15 +24,9 @@ aoc 2024, 1 do
   """
   def p2(input) do
     input
-    |> transform_input_to_lists()
-    |> calculate_frequencies()
-  end
-
-  defp transform_input_to_lists(raw_input) do
-    raw_input
-    |> String.split("\n")
-    |> Enum.reject(&(&1 == ""))
+    |> Transformers.lines()
     |> separate_entries_to_lists()
+    |> calculate_frequencies()
   end
 
   defp separate_entries_to_lists(unseparated_pairs) do
